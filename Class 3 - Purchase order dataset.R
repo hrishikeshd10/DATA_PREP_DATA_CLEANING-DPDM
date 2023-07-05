@@ -28,6 +28,8 @@ for(i in 1: length(column_names)){
   
 }
 
+
+
 final_data_frame = as.data.frame(column_names,sum_by_items)
 final_data_frame
 

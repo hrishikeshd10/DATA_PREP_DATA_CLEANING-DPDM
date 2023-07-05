@@ -91,4 +91,8 @@ sorted_output = year_wise_movies[order(year_wise_movies$Var1),] # DO NOT FORGET 
 
 sorted_output
 
+iris[1]
+mean(iris[1])
+mean(iris[[1]])
+
 
