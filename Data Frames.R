@@ -5,3 +5,5 @@ empData
 
 # Display Summary of the data frame
 summary(empData)
+
+people1<-subset(people, select=c(Hand.Span, Sex, Eye.Color))

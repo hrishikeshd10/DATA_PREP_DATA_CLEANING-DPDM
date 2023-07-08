@@ -1,36 +1,41 @@
-######### PURCHSE ORDER DATASET ####################
- purchase_order = read.csv("/Users/hrishi445/Desktop/ACADEMICS/R - PRogramming Data-prep-anad-cleaning/Purchase Orders.csv",header = T)
- purchase_order
+######### PURCHSE ORDER DATASET ####################\
+purchase_order_file_path = sprintf("/Users/hrishi445/Desktop/ACADEMICS/DATA_PREP_DATA_CLEANING-DPDM-/%s","Purchase Orders.csv")
+purchase_order_file_path
+ purchase_order = read.csv(purchase_order_file_path,header = T)
+ class(purchase_order)
+ 
  
  sum(purchase_order$Cost.per.order) # Sum of Cost per oprder column
  
  #TOtal qty of airframe purchased
  head(purchase_order)
- airframe_subset =subset(purchase_order,  purchase_order$Item.Description== "Airframe fasteners")
+ airframe_subset =subset(purchase_order,  purchase_order$Item.Description == "Airframe fasteners")
+ airframe_subset
 sum(airframe_subset$Quantity)  
 
-#TOAL ORDER PLACED BY MANLEY VALLVE
-manley_valve_subset = subset(purchase_order,purchase_order$Supplier=="Manley Valve")
+#TOAL ORDER ( IN VALUE ) PLACED BY MANLEY VALVE
+head(purchase_order,100)
+manley_valve_subset = subset(purchase_order,purchase_order$Supplier == "Manley Valve")
+manley_valve_subset
 sum(manley_valve_subset$Cost.per.order)
 
 
 ## Items having  total cost of all orders by item description
 
-column_names = unique(purchase_order$Item.Description)
+column_names = unique(purchase_order$Item.Description) # To get the total number of rows
 column_names
 
 sum_by_items = c('numeric')
 
 for(i in 1: length(column_names)){
   desc_subset = subset(purchase_order,purchase_order$Item.Description == column_names[i])
-  sum_by_items[i] = sum(desc_subset$Cost.per.order)
   
+  sum_by_items[i] = sum(desc_subset$Cost.per.order)
   
 }
 
-
-
-final_data_frame = as.data.frame(column_names,sum_by_items)
+final_data_frame = data.frame(column_names,sum_by_items)
+fix(final_data_frame)
 final_data_frame
 
 

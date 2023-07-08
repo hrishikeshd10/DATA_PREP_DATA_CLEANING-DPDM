@@ -71,8 +71,8 @@ cor.test(iris$Petal.Length, iris$Petal.Width)
 
 ############   IMPOERTANT RULE RULE RULE RULE.   #############################
 
-# When p-value <0.5, you REJECT NULL hypothesis and accept alternative hypothesis.
-# is p-value > 0.5, you ACCEPT NULL hypothesis.
+# When p-value <0.05, you REJECT NULL hypothesis and accept alternative hypothesis.
+# is p-value > 0.05, you ACCEPT NULL hypothesis.
 
 #############.   CONFIDENCE INTERVAL             #############################
 # p-value is nothing but confidence level
@@ -106,13 +106,15 @@ cor.test(rank_data$Rintervi, rank_data$Raptitut, method = 'spearman')
 # NULL HYP = There is no ASSOCIATION between job category and minority category  
 # ALTERNATE = There is some ASSOCIATION between jobn category and minority category
 
-# chi- square test
+# CHI-SQUARE TEST OF ASSOCIATION
+
 empData = read.csv("/Users/hrishi445/Desktop/ACADEMICS/DATA_PREP_DATA_CLEANING-DPDM-/employeedata.csv")
 head(empData)
 
 #Create a contingency table
 t1 = table(empData$jobcat, empData$minority) # TABLE in R GIVES FREQUENCY it is not an actual table
-summary(t1) # function used for Chi-Square test. This is called as CHI-SQUARE TEst of ASSOCIATION
+t1
+summary(t1) # function used for Chi-Square test. This is called as CHI-SQUARE TEst of ASSOCIATION. Performed on the contingency table
 class(t1)
 mat = matrix(t1,3,2)
 #There is bias in the data, now e try to find the expected count
@@ -133,8 +135,70 @@ for(i in 1:3){
 expValues
 
 
+################################## CHI_SQUARE GOODNESS OF FIT TEST  ##################################
+# this is diff that chi-square test to find association of categorical variables
+#Also called as One proportion Test
+# when => 
+
+chisq.test(c(1775,1457),p=c(.5,.5))
+# NULL:  There is NO difference in the hypothesised and sample proportions i.e Proportion of Boys & Girls is 50:50
+# ALTERNATE: The proportion of boys and girls is not 50:50
+# p = proportion of the population.
+
+## NULL => prop of 1st to 2nd class is 20:80
+## Alternate=> Prop of 1st to 2nd is not 20:80
+result = chisq.test(c(70,330), p=c(0.3,0.7))
+result$p.value
+formatted_p_value <- format(result$p.value, scientific = ic = FALSE)
+formatted_p_value
 
 
+#if p<0.05we accept alternative
+#if p>0.05 we accept NULL
+
+
+
+################################## TWO PROPORTION TEST  ##################################
+# In grp 1 350/600 responded +ve
+# in grp 2 360/500 responded +ve
+# Research unit want to test whether there is difference between the efficacy of the said 2 drugs
+# 
+# NUll => Satistically, There is no significatnt diff in the efficay of the 2 drugs
+# ALternate => Satistically, There is a significant diff in the efficay of the 2 drugs
+
+result = prop.test(c(350, 260),c(600,500)) 
+result
+
+# prop of people getting cured from drug 1=58%
+# and prop of people getting cured from drug 2 = 52%
+# so we an conclude that drug 2 is more effective
+
+
+##Question 2:
+# in a city 400 out of 500 men were smokers
+# after tax, 400 out of 600 were smokers.
+# So was the observed decrease in the proportions of smokers significant?
+
+# Null => Statistically, there is no significatnt diff in the smokers befor and after tax
+# Alternate => Statistically, there is a significatnt diff in the smokers befor and after tax
+
+result = prop.test(c(400,400), c(500,600))
+result = format(result$p.value,scientific = F)
+result
+
+
+## QUESTION 3:
+# A company has two ads A nd B for a product. Ad A used in anrea of 60 people of wich 18 tried product
+# Ad B in are of 100 people, 22tried the product. Does this indicxate that a advertisement A is more effective than advertisement B, if 5% level of significance is used?
+
+result = prop.test(c(18,22),c(60,100))
+result
+result = format(result$p.value,scientific = F)
+
+result
+  
+
+  
 
 
 

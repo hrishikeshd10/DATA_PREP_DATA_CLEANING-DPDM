@@ -92,7 +92,7 @@ paste("Weight of ", name, " is ", weight_hrishikesh)
 
 #                           DATA STRUCTURES IN R
 
-# VECTORS -> One dimenson Array
+# VECTORS -> One Dimenstion Array
 
 # use function c() to create a vector or an array
 
@@ -157,6 +157,8 @@ class(marks)
 marks =as.numeric(marks) # NA comes in place of Alphabets as it cannot convert it to numbers
 class(marks)
 as.numeric(marks)
+marks = marks[is.na(marks)] = 0
+marks
 
 mixv4 = c(89,56,98,T,34,"Dinar",100)
 mixv4  = as.logical(mixv4)
@@ -201,7 +203,7 @@ m2
 
 m1 + m2
 m1-m2
-m1*m2 # NEVER EVER USE * FOR MATRIX MULTIPLICATION it is used for elementwise multiplication
+m1*m2 # NEVER EVER USE * FOR MATRIX MULTIPLICATION it is used for element wise multiplication
 # THIS IS CORRECT WAY TO MULTIPLY MATRICES
 m1%*%m2
 
@@ -235,8 +237,8 @@ dim(empData) # dimensionsa, how many rows and columns
 nrow(empData)
 ncol(empData)
 colnames(empData) # Get names of al the columns in the data frame
-head(empData,3) # Get the top 3 rows
-tail(empData,3) # Get the last 3 rows
+head(empData,,3) # Get the top 3 rows
+tail(empData,,3) # Get the last 3 rows
 
 mean(empData$empsal) # get the mean of empSAl Column in empData Table
 
@@ -248,7 +250,7 @@ empData1 =data.frame(empNo,empNames,empSalaries)
 empData1
 
 
-# DIFF BETWEEN MATRIX AND DATA FRAME IS : in matrix data type shouldbe numeric only of each element
+# DIFF BETWEEN MATRIX AND DATA FRAME IS : in matrix data type should be numeric only of each element
 empData1[empData1$empSalaries >100,c(1:2)] # if nothing after comma, it means return all the rows
 empData1[c(2:4 ),] # pickup all rows from  2 to 4 and return all the columns
 empData1[c(2:4),c(1:2)] # pickup all rows from  2 to 4 and return first 2 columns

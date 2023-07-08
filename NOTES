@@ -1,0 +1,16 @@
+Right way to multiple matrix is m1%*% m2 and not m1* m2 (this does element wise multiplication)
+
+
+REMOVE ELEMENT FROM DATASET
+dataset<-dataset[-c(2,4,7),]
+
+
+RBIND() -> APPEND ROWS
+The rbind function allows you to attach one dataset on to the bottom of the other, which is known as appending or concatenating the datasets. This is useful when you want to combine two datasets that contain different observations for the same variables,
+The rbind function does not identify duplicates or sort the data. You can do this with the unique and order functions.
+You can append three or more datasets in a similar manner:
+> newdataset<-rbind(dataset1, dataset2, dataset3)
+
+
+CBIND() -> APPEND COLUMNS
+
