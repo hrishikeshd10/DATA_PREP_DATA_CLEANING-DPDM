@@ -17,7 +17,7 @@
 #                 Crass testing for cars
 
 
-# IF We are doing Census study, we dont need hypothesis testing. We use only when we do sampling study and draw inference abt
+# IF We are doing Census study, we don't need hypothesis testing. We use only when we do sampling study and draw inference abt
 # a population by studying the sample study.
 
 
@@ -28,7 +28,7 @@
 #
 #
 # HOW TO DETERMINE THE RELATION BETWEEN TWO VARIABLES?
-#   We can do this using concept of co-variance and Correlation (pearson adn spearman )
+#   We can do this using concept of co-variance and Correlation (pearson and spearman )
 
 
 # CO-VARIANCE -> is Scale dependent measure (measuing height and weight in feet nad kgs , now change kgs to gms, then covariance changes)
@@ -64,9 +64,14 @@ cor(iris[1:4])
 plot(iris$Petal.Length, iris$Petal.Width)
 #We use this to understand if two variables are related or not
 
-# STATISTICALLY, There is no relation between Petal length and Petal width
-# STATISTICALLY< There is a strong relation between petal length and petal width
-cor.test(iris$Petal.Length, iris$Petal.Width)
+# NULL => STATISTICALLY, There is no relation between Petal length and Petal width
+# ALTERNATIVE => STATISTICALLY< There is a strong relation between petal length and petal width
+result = cor.test(iris$Petal.Length, iris$Petal.Width)
+
+# GET THE ORIGINAL p-value instead of 'e' notation
+result = format(result$p.value,scientific = F)
+
+result
 
 
 ############   IMPOERTANT RULE RULE RULE RULE.   #############################
@@ -82,8 +87,8 @@ cor.test(iris$Petal.Length, iris$Petal.Width)
 
 
 #############.  HOW TO FIND REALTION BETWEEN TWO RANKED VARIABLES. ############
-#When We have rangked data, we use spearman correaltion
-# WE have recorderd the snap score and interview score but we dont have it. now, instead we have ranks of the students
+#When We have ranked data, we use SPEARMAN correaltion
+# WE have recorded the snap score and interview score but we dont have it. now, instead we have ranks of the students
 # Hypothesis => NULL=>There is no correlation between snap score and interview score
 # ALTERNATIVE= > THere is some corelation between snap score and interview score
 
@@ -95,7 +100,9 @@ rank_data
 cor.test(rank_data$Rintervi, rank_data$Raptitut, method = 'spearman')
 
 #This test proves that there is corelation between the Aptitude ranking and InterView Ranking
-#means there is consistency in the rank of sstudent in rank as well as snap (means scoring in snap means he is good in interview as well)
+#means there is consistency in the rank of student in rank as well as snap (means scoring in snap means he is good in interview as well)
+
+
 
 #############.  HOW TO FIND REALTION BETWEEN TWO CATEGORICAL VARIABLES. ######################################.
 
@@ -118,6 +125,12 @@ summary(t1) # function used for Chi-Square test. This is called as CHI-SQUARE TE
 class(t1)
 mat = matrix(t1,3,2)
 #There is bias in the data, now e try to find the expected count
+# WE know this because p-value is Less than 0.05
+p_value = format(summary(t1)$p.value,scientific = F)
+
+p_value
+
+## FORMULA TO CALCULATE THE EXPECTED VALUE ##
 rowSums1 = as.vector(rowSums(t1))
 colSums1 = as.vector(colSums(t1))
 
@@ -136,7 +149,7 @@ expValues
 
 
 ################################## CHI_SQUARE GOODNESS OF FIT TEST  ##################################
-# this is diff that chi-square test to find association of categorical variables
+# this is diff than chi-square test to find association of categorical variables
 #Also called as One proportion Test
 # when => 
 
