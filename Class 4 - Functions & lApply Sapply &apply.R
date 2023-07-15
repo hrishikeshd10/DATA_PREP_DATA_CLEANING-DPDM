@@ -18,7 +18,7 @@ class(sapply(list1, mean)) #same as lapply, diff is that it returns result in fo
 
 head(iris)
 lapply(iris[1:4], mean)  #similar to colMeans(iris[1:4]). colmeans returns vector. lapply returns a list
-
+class(lapply(iris[1:4], mean)[[1]])
 #tapply is always applied in dataframe
 tapply(iris$Sepal.Length, iris$Species, mean) #
 tapply(iris$Sepal.Width, iris$Species, mean)

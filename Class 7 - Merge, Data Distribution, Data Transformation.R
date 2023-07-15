@@ -29,10 +29,10 @@ data2 =read.csv(file_path_data2)
 data3 =read.csv(file_path_data3)
 data4 =read.csv(file_path_data4)
 
-# data1
-# data2
-# data3
-# data4
+data1
+data2
+data3
+data4
 
 rbind_13 = rbind(data1,data3) # Stack data on top of one another
 rbind_13
@@ -161,4 +161,115 @@ curve(dnorm(x,mean=mean(x),sd = sd(x)),all = T)
   # It is not laways true though
 hist(1/x)
 
+# Exam - Question : What are different techniques that are used for NORMALISATION?
+# Standardisation -> Zscore Transformation - > (x-mu) / sd(x)
+# Min-max transformation -> x - min(x) / max(x) - Min(x)    ; The denominator is called as range
+# Decimal Scaling = x / 10^n  Where n= no of digits in max value of x
+
+# WHY THERE IS NEED OF NORMALISATION?
+
+name = c("a",'b','c','d','e')
+height = c(170,167,168,160,172)
+weight = c(65,64,67,25,67)
+salary = c(34000, 23000,63000,33000,23500)
+
+data = data.frame(name, height, weight, salary)
+data
+
+# Find the distance between the two points a and b
+# 1. Manhattan distance between a and b => abs( x2-x1) + abs(y2-y1)
+man_distance_ab = sum(abs(data[1,2:4] - data[2,2:4]))
+man_distance_ab
+
+man_distance_ac = sum(abs(data[1,2:4] - data[3,2:4]))
+abs(data[1,2:4] - data[3,2:4])
+man_distance_ac
+
+man_distance_ad = sum(abs(data[1,2:4] - data[4,2:4]))
+man_distance_ad
+
+man_distance_ae = sum(abs(data[1,2:4] - data[5,2:4]))
+man_distance_ae
+
+# By looking at the values, we thought that e i closer to a, but on calcualting
+# the manhattan distance we find that d is more closer to a
+#
+# Heighest weightage to salary column , then height and then weight as thery are measured
+# in 5,3 and 2 digits respectively
+
+# Correct way to write above statements
+for (i in 2:5){
+  print(sum(abs(data[1,2:4] - data[i,2:4])))
+}
+
+(data$height - min(data$height)) / (max(data[,2]) - min(data[,2]))
+
+
+
+
+# We do the scaling now
+
+######### SAME TRANSFORMATION SHOULD BE APPLIED ON ALL THE COLUMNS OF THE DATA
+
+# This is Z score transformation
+iris$Sepal.Length -mean(iris$Sepal.Length) / sd(iris$Sepal.Length)
+
+
+
+## THIS IS MIN-MAX TRANSFORMATION
+new_data = data.frame() # this shalll create error ar line 213 ads new_data[,j] does not exist
+new_data = data
+new_data
+
+for(j in  2:4){
+new_data[,j] = (data[,j] - min(data[,j])) / (max(data[,j]) - min(data[,j]))
+  print(data[,j])
+}
+new_data
+
+scale(data[2:4])
+
+for( iu in 2:5){
+  print(sum(abs(new_data[1,2:4] - new_data[2,2:4])))
+}
+
+dist(new_data) # this calculated distance using Euclidian method
+dist(new_data,2:4, method = "manhattan") # this calculated distance using manhattan method
+
+
+
+######################### Decimal TRANSFORMATION  #############################
+# Decimal Scaling = x / 10^n  Where n= no of digits in max value of x
+
+max_value = max(iris$Sepal.Length)
+
+n = nchar(max(floor(iris$Sepal.Length)))
+decimal_sacaled_iris_values = iris$Sepal.Length / (10 ^ n)
+decimal_sacaled_iris_values
+
+
+#############################################################################
+
+#
+# After Z-Score transformation,  The scaled values will be in the range of -3 to + 3
+# After MIn-Max transformation, The scaled values will be in the range of -1 to +1
+# After Decimal Transformation,  The scaled values will be in the range of 0-1
+
+
+age = c(12,13,14,15,19,20,23,24,40,45,46)
+# you donto want to treat this a numeric , convert it to categorical to nominal.
+
+# Define the age intervals for categorization
+# Implicit breaks: R decides the breaks
+age_category <- cut(age, 3, labels = c("Child", "Teenage", "Adult"))
+# Exclusively introduce breaks
+age_intervals <- c(0, 12, 18, 25, 50, 100)
+age_category <- cut(age, breaks = age_intervals, labels = c("Child", "Teenage", "Adult"))
+
+# View the transformed categorical variable
+age_category
+
+for(i in 1:length(age)){
+  print(paste(age[i] , age_category[i]))
+}
 

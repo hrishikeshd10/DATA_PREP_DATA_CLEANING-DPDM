@@ -69,3 +69,8 @@ v1
 
 
 
+
+matrix_fun = matrix(1:12,3,4,byrow = F)
+matrix_fun[2,c(2,4)]
+table(vectors)
+matrix_fun
