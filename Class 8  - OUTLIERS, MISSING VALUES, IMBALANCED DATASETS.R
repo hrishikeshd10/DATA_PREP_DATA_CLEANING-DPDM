@@ -7,6 +7,7 @@
 # How do we find an outlier in R
 # WE find it using
 # 1. Boxplot method. (most common)
+#2.
 
 boxplot(iris[1:4])
 
@@ -51,12 +52,13 @@ boxplot(new_iris)
 
 ##################################
 set.seed(3147) # used to generate same random numbers again and again.
-sample(3:10,5)
+sample(3:10,5)  # Genearte a random aara from 3 to 10 , and size = 5 (5 items )
 
 rnorm(100) # Random numbers from standard normal distribution
 hist(rnorm(100))
 
-rnorm(10,75,5) #Generate 10 random numbers in normal dist, whose mean is 75 and sd is 5
+rnorm(10,75,5)
+#Generate 10 random numbers in normal dist, whose mean is 75 and sd is 5
 
 set.seed(3147)
 x = rnorm(100)
