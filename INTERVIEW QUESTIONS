@@ -1,0 +1,19 @@
+
+Observerd information  = > Data excluding mthe missing values is observed info
+UNovserved information => Data which is missing.
+
+What is Data missingness mEchanisms?
+=>
+1. MCAR  (MISSING COMPLETELY AT RANDOM)
+=> prob of any missing value in the dataset is same. Like Koi bhi value miss ho sakti thi.
+            Any vaule can be NA, and prob of its missing is same.
+2. MAR (MISSING AT RANDOM)
+=> Prob of missing values for categorical groups is not the same.There is some intention being the
+            data not being there. Depends on observed information (we can estimate the reason)
+
+3. MNAR (MISSING NOT COMPLETELY AT RANDOM):
+=> We cannot estimate the missing value. It depends on unobserved information.
+
+
+
+STACKED & UNSTACKED DATA:

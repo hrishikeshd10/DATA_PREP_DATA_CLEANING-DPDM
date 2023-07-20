@@ -18,12 +18,12 @@ q3 = summary(iris$Sepal.Width)["3rd Qu."]
 q3
 
 
-iqr = IQR(iris$Sepal.Width)
+iqr = IQR(iris$Sepal.Width) # IQR = Q3 - Q1 where q3 and q1 are median of values above & below median resp.
 iqr
 
-lw = 2.800 - (1.5*iqr)
+lw = 2.800 - (1.5*iqr) # q1  - (1.5 *iqr)
 lw
-uw = 3.300 + (1.5 * iqr)
+uw = 3.300 + (1.5 * iqr) # q1  - (1.5 *iqr)
 print(uw)
 
 
@@ -39,8 +39,10 @@ subset(iris, iris$Sepal.Width > uw)
 # name the column isOutlier and put values and yes and no in that column
 
 # The choice of removeing outliers depends on ceircumstances:
-# GEt values after removing the outliers
+# GEt OUTLIER VALUES
+
 outliers = boxplot(iris$Sepal.Width)$out
+ouliers
 
 # Find out record numbers where the records with outliers exist
 outliers_index  = which(iris$Sepal.Width %in% outliers) # which Index are the iris$Sepal WIdth which have outlier values.

@@ -1,4 +1,3 @@
-file_pasth_base = "/Users/hrishi445/Desktop/ACADEMICS/DATA_PREP_DATA_CLEANING-DPDM-/datasets_class7/"
 
 ###########################             JOINS IN TABLES (SQL)         ###################################
 
@@ -15,6 +14,7 @@ file_pasth_base = "/Users/hrishi445/Desktop/ACADEMICS/DATA_PREP_DATA_CLEANING-DP
 
 
 ###########################################################################################################
+file_pasth_base = "/Users/hrishi445/Desktop/ACADEMICS/DATA_PREP_DATA_CLEANING-DPDM-/datasets_class7/"
 
 
 file_path_data1 = paste(file_pasth_base,"data1.csv",sep="")
@@ -31,6 +31,7 @@ data4 =read.csv(file_path_data4)
 
 data1
 data2
+
 data3
 data4
 
@@ -41,8 +42,9 @@ cbind_14 = cbind(data1,data4) # join horizontally
 cbind_14
 
 
-inner_join = merge(data1, data2) # PERFORM INNER JOIN ON COMMON COLUMN, the croatia column is excluded as it is not in the data2
-merged_data12
+inner_join = merge(data1, data2)
+inner_join
+# PERFORM INNER JOIN ON COMMON COLUMN, the croatia column is excluded as it is not in the data2
 
 left_join = merge(data1, data2, all.x =T) # x here means left table and y means Right table
 left_join
@@ -87,7 +89,7 @@ inner_join_new
 
 hist(iris$Sepal.Length, probability = T)
 # To Add the curve on the histogram, write the following line
-curve(dnorm(x,mean =mean(iris$Sepal.Length), sd = sd(iris$Sepal.Length)), add = T) 
+curve(dnorm(x,mean =mean(iris$Sepal.Length), sd = sd(iris$Sepal.Length)), add = T)
 # Usually not followed as looking at histogram we cannot surely say that the data follows normal distribution.
 
 # 2. Quantile Plot
@@ -126,10 +128,14 @@ shapiro.test(trees$Volume) # TRees is the inbuilt dataset in R
 # we know that tree$volume is skewed data, So we transform it to a normal one.
 
 # 1. Square Root transformaion method
+data = trees$Volume
+hist(data)
+#NORMALISED DATA USING SQRT TRASFORMATION METHOD
 sdata = sqrt(trees$Volume)
 sdata
 hist(sdata)
-# hEre, we chcecked using hist to see if data followed normal distribution or not. It does not., So we use another method
+# hEre, we chcecked using hist to see if data followed normal distribution or not.
+# However, It does not., So we use another method
 
 # 2. Log Transformation technique
 hist(log(trees$Volume))
@@ -159,7 +165,14 @@ curve(dnorm(x,mean=mean(x),sd = sd(x)),all = T)
 
 # USUALLY, inverse Transformation is used to turn. +vely skewed to negatively Skewed Distribution
   # It is not laways true though
+x= trees$Volume
+
+hist(x,probability = T)
+
+curve(dnorm(x,mean=mean(x),sd = sd(x)),all = T)
+
 hist(1/x)
+curve(dnorm(1/x, mean = mean(x),sd = sd(x)), all = T)
 
 # Exam - Question : What are different techniques that are used for NORMALISATION?
 # Standardisation -> Zscore Transformation - > (x-mu) / sd(x)
@@ -177,19 +190,20 @@ data = data.frame(name, height, weight, salary)
 data
 
 # Find the distance between the two points a and b
-# 1. Manhattan distance between a and b => abs( x2-x1) + abs(y2-y1)
+# 1. Manhattan distance between a and b => | x2- x1 | + | y2-y1 |
 man_distance_ab = sum(abs(data[1,2:4] - data[2,2:4]))
-man_distance_ab
-
 man_distance_ac = sum(abs(data[1,2:4] - data[3,2:4]))
-abs(data[1,2:4] - data[3,2:4])
-man_distance_ac
-
 man_distance_ad = sum(abs(data[1,2:4] - data[4,2:4]))
-man_distance_ad
-
 man_distance_ae = sum(abs(data[1,2:4] - data[5,2:4]))
+man_distance_ab
+man_distance_ac
+man_distance_ad
 man_distance_ae
+
+
+dist(new_data) # this calculated distance using Euclidian method
+dist(new_data,2:4, method = "manhattan") # this calculated distance using manhattan method
+
 
 # By looking at the values, we thought that e i closer to a, but on calcualting
 # the manhattan distance we find that d is more closer to a
@@ -199,24 +213,35 @@ man_distance_ae
 
 # Correct way to write above statements
 for (i in 2:5){
+
+  print(paste("a to ", data[i,1] ))
   print(sum(abs(data[1,2:4] - data[i,2:4])))
 }
 
-(data$height - min(data$height)) / (max(data[,2]) - min(data[,2]))
-
-
-
-
-# We do the scaling now
-
 ######### SAME TRANSFORMATION SHOULD BE APPLIED ON ALL THE COLUMNS OF THE DATA
 
-# This is Z score transformation
-iris$Sepal.Length -mean(iris$Sepal.Length) / sd(iris$Sepal.Length)
+#   QUESTION: WHY IS SCALING THE DATA IMPORTANT
+#     1. Scaling the data brings all variables to a common scale,
+#        making it easier to compare and understand their relative importance and impact.
+#
+#     2.  Many machine learning algorithms use distance-based calculations. Variables with larger scales can dominate
+#         the learning process, leading to biased models. Scaling ensures that all variables contribute equally to the
+#         analysis, preventing any one variable from overpowering the others.
+#
+#     3. When plotting data, having different scales can distort the visual representation. Scaling the data ensures that
+#        the plots accurately reflect the relationships and patterns in the data.
+
+############################## Z SCORE TRANSFORMATION ##############################
+# Z = (x - μ) / σ  : x = each value , μ = Mean, σ = SD
+(iris$Sepal.Length -mean(iris$Sepal.Length) )/ sd(iris$Sepal.Length)
 
 
 
-## THIS IS MIN-MAX TRANSFORMATION
+############################## THIS IS MIN-MAX TRANSFORMATION ########################
+
+# MIN-MAX TRANSFORMATION => (x - min(column)) / { max(colum) - min(column)}
+
+
 new_data = data.frame() # this shalll create error ar line 213 ads new_data[,j] does not exist
 new_data = data
 new_data
@@ -227,14 +252,25 @@ new_data[,j] = (data[,j] - min(data[,j])) / (max(data[,j]) - min(data[,j]))
 }
 new_data
 
-scale(data[2:4])
+scale(data[,2:4])
+#  using this method, you cannot get ONLY table of scaled values, you get center etc
+
+#Instead you can foolow line255 on how to do it if yo uneed only tabulated data for scaled values.
+scaled_data <- data
+scaled_data[, 2:4] <- scale(data[, 2:4])
+
+mean(scaled_data[,2])
+sd(scaled_data[,2])
+
+# Observe that mean of scaled values of a column are o (tend to 0)
+# Also , The SD for the column of scaled values of the column is 1.
+
+#That is what scaling does.
+
 
 for( iu in 2:5){
   print(sum(abs(new_data[1,2:4] - new_data[2,2:4])))
 }
-
-dist(new_data) # this calculated distance using Euclidian method
-dist(new_data,2:4, method = "manhattan") # this calculated distance using manhattan method
 
 
 
